@@ -6,17 +6,17 @@
        <mirror>
          <id>nexus-public</id>
          <mirrorOf>*</mirrorOf>
-         <url>http://docker.lab.example.com:8081/nexus/content/repositories/public/</url>
+         <url>http://192.168.56.63:8081/nexus/content/repositories/public/</url>
        </mirror>
        <mirror>
          <id>nexus-snapshots</id>
          <mirrorOf>*</mirrorOf>
-         <url>http://docker.lab.example.com:8081/nexus/content/repositories/snapshots/</url>
+         <url>http://192.168.56.63:8081/nexus/content/repositories/snapshots/</url>
        </mirror>
        <mirror>
          <id>nexus-releases</id>
          <mirrorOf>*</mirrorOf>
-         <url>http://docker.lab.example.com:8081/nexus/content/repositories/releases/</url>
+         <url>http://192.168.56.63:8081/nexus/content/repositories/releases/</url>
        </mirror>
    </mirrors>
    <servers>
