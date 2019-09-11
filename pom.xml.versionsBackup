@@ -42,6 +42,7 @@
     <url>http://127.0.0.1/dummy</url>
   </scm>
   <build>
+    <finalName>JavaWebApp</finalName>
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -67,7 +68,6 @@
         </configuration>
       </plugin>
     </plugins>
-      <finalName>${project.artifactId}-${project.version}.${buildNumber}</finalName>
   </build>
 </project>
 
