@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.javasamples.apps</groupId>
@@ -64,6 +63,10 @@
                     <doCheck>false</doCheck>
                     <doUpdate>false</doUpdate>
                     <revisionOnScmFailure>unknownbuild</revisionOnScmFailure>
+                    <properties>
+                        <!-- !!!!!!!!! SETTING HERE THE CORRECT MAJOR/MINOR VERSION NUMER !!!!!!!!!! -->
+                        <major.minor.version>1.0</major.minor.version>
+                    </properties>
                 </configuration>
             </plugin>
             <plugin>
@@ -85,4 +88,3 @@
         <finalName>${project.artifactId}-${project.version}.${buildNumber}</finalName>
     </build>
 </project>
-
