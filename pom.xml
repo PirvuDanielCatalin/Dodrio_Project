@@ -3,7 +3,7 @@
 
     <groupId>org.javasamples.apps</groupId>
     <artifactId>java-simple-web-page</artifactId>
-    <version>1.0.13-SNAPSHOT</version>
+    <version>1.0.13</version>
 
     <packaging>war</packaging>
     <name>JavaWebapp</name>
@@ -37,7 +37,7 @@
     <scm>
         <connection>scm:git:https://github.com/PirvuDanielCatalin/DoduoProject.git</connection>
         <developerConnection>scm:git:https://github.com/PirvuDanielCatalin/DoduoProject.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>java-simple-web-page-1.0.13</tag>
         <url>https://github.com/PirvuDanielCatalin/DoduoProject</url>
     </scm>
     <build>
