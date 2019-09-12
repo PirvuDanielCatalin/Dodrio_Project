@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.javasamples.apps</groupId>
@@ -20,18 +21,18 @@
     <repositories>
         <repository>
             <id>nexus-public</id>
-            <url>http://192.168.56.63:8081/nexus/content/groups/public/</url>
+            <url>http://192.168.56.63:8081/repository/maven-public/</url>
         </repository>
     </repositories>
 
     <distributionManagement>
         <snapshotRepository>
             <id>nexus-snapshots</id>
-            <url>http://192.168.56.63:8081/nexus/content/repositories/snapshots/</url>
+            <url>http://192.168.56.63:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
         <repository>
             <id>nexus-releases</id>
-            <url>http://192.168.56.63:8081/nexus/content/repositories/releases/</url>
+            <url>http://192.168.56.63:8081/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
     <scm>
@@ -65,7 +66,7 @@
                     <revisionOnScmFailure>unknownbuild</revisionOnScmFailure>
                     <properties>
                         <!-- !!!!!!!!! SETTING HERE THE CORRECT MAJOR/MINOR VERSION NUMER !!!!!!!!!! -->
-                        <major.minor.version>1.0</major.minor.version>
+                        <major.minor.version>1.0.0</major.minor.version>
                     </properties>
                 </configuration>
             </plugin>
