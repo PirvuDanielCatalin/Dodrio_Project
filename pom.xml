@@ -36,12 +36,11 @@
         </repository>
     </distributionManagement>
 
-    <!-- <properties>
+    <properties>
         <project.scm.id>git</project.scm.id>
-    </properties> -->
+    </properties>
 
     <scm>
-        <id>git</id>
         <connection>scm:git:https://github.com/PirvuDanielCatalin/DoduoProject.git</connection>
         <developerConnection>scm:git:https://github.com/PirvuDanielCatalin/DoduoProject.git</developerConnection>
         <tag>HEAD</tag>
