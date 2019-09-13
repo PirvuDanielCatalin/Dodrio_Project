@@ -6,20 +6,25 @@
        <mirror>
          <id>nexus-public</id>
          <mirrorOf>*</mirrorOf>
-         <url>http://localhost:8081/repository/maven-public/</url>
+         <url>http://192.168.56.63:8081/repository/maven-public/</url>
        </mirror>
        <mirror>
          <id>nexus-snapshots</id>
          <mirrorOf>*</mirrorOf>
-         <url>http://localhost:8081/repository/maven-snapshots/</url>
+         <url>http://192.168.56.63:8081/repository/maven-snapshots/</url>
        </mirror>
        <mirror>
          <id>nexus-releases</id>
          <mirrorOf>*</mirrorOf>
-         <url>http://localhost:8081/repository/maven-releases/</url>
+         <url>http://192.168.56.63:8081/repository/maven-releases/</url>
        </mirror>
    </mirrors>
    <servers>
+      <server>
+       <id>git</id>
+       <username>ColaboratorDevOps</username>
+       <password>DevOpsTeam1</password>
+     </server>
      <server>
        <id>nexus-public</id>
        <username>admin</username>
