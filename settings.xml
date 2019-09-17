@@ -2,6 +2,7 @@
 <settings xmlns="http://maven.apache.org/SETTINGS/1.1.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
+   
    <mirrors>
        <mirror>
          <id>nexus-public</id>
@@ -19,27 +20,34 @@
          <url>http://192.168.56.63:8081/repository/maven-releases/</url>
        </mirror>
    </mirrors>
+
    <servers>
+
       <server>
        <id>git</id>
        <username>ColaboratorDevOps</username>
        <password>DevOpsTeam1</password>
      </server>
+
      <server>
        <id>nexus-public</id>
        <username>admin</username>
        <password>admin123</password>
      </server>
+
      <server>
        <id>nexus-snapshots</id>
        <username>admin</username>
        <password>admin123</password>
      </server>
+
      <server>
        <id>nexus-releases</id>
        <username>admin</username>
        <password>admin123</password>
      </server>
+
   </servers>
+  
 </settings>
 
