@@ -42,10 +42,10 @@
     </properties>
 
     <scm>
-        <connection>scm:git:https://github.com/ColaboratorDevOps/DoduoProject.git</connection>
-        <developerConnection>scm:git:https://github.com/ColaboratorDevOps/DoduoProject.git</developerConnection>
+        <connection>scm:git:https://github.com/ColaboratorDevOps/Dodrio_Project.git</connection>
+        <developerConnection>scm:git:https://github.com/ColaboratorDevOps/Dodrio_Project.git</developerConnection>
         <tag>HEAD</tag>
-        <url>https://github.com/ColaboratorDevOps/DoduoProject</url>
+        <url>https://github.com/ColaboratorDevOps/Dodrio_Project</url>
     </scm>
 
     <build>

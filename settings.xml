@@ -7,17 +7,17 @@
        <mirror>
          <id>nexus-public</id>
          <mirrorOf>*</mirrorOf>
-         <url>http://192.168.56.63:8081/repository/maven-public/</url>
+         <url>http://192.168.56.63:8081/nexus/content/groups/public/</url>
        </mirror>
        <mirror>
          <id>nexus-snapshots</id>
          <mirrorOf>*</mirrorOf>
-         <url>http://192.168.56.63:8081/repository/maven-snapshots/</url>
+         <url>http://192.168.56.63:8081/nexus/content/repositories/snapshots/</url>
        </mirror>
        <mirror>
          <id>nexus-releases</id>
          <mirrorOf>*</mirrorOf>
-         <url>http://192.168.56.63:8081/repository/maven-releases/</url>
+         <url>http://192.168.56.63:8081/nexus/content/repositories/releases/</url>
        </mirror>
    </mirrors>
 
