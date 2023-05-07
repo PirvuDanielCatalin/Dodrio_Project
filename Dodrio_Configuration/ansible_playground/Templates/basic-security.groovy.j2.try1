@@ -1,0 +1,97 @@
+#!groovy
+import jenkins.*
+import hudson.*
+import com.cloudbees.plugins.credentials.*
+import com.cloudbees.plugins.credentials.common.*
+import com.cloudbees.plugins.credentials.domains.*
+import com.cloudbees.jenkins.plugins.sshcredentials.impl.*
+import hudson.plugins.sshslaves.*;
+import hudson.model.*
+import jenkins.model.*
+import hudson.security.*
+
+def instance = Jenkins.getInstance()
+def hudsonRealm = new HudsonPrivateSecurityRealm(false)
+def users = hudsonRealm.getAllUsers()
+users_s = users.collect { it.toString() }
+
+// Create the admin user account if it doesn't already exist.
+if ("{{ jenkins_admin_username }}" in users_s) {
+    println "Admin user already exists - updating password"
+
+    def user = hudson.model.User.get('{{ jenkins_admin_username }}');
+    def password = hudson.security.HudsonPrivateSecurityRealm.Details.fromPlainPassword('{{ jenkins_admin_password }}')
+    user.addProperty(password)
+    user.save()
+}
+else {
+    println "--> creating local admin user"
+
+    hudsonRealm.createAccount('{{ jenkins_admin_username }}', '{{ jenkins_admin_password }}')
+    instance.setSecurityRealm(hudsonRealm)
+
+    def strategy = new GlobalMatrixAuthorizationStrategy()
+    strategy.add(Jenkins.ADMINISTER, "admin")
+
+    instance.setAuthorizationStrategy(strategy)
+    instance.save()
+}
+
+def read_users = "{{ jenkins_read_users }}"
+read_users.each { read_user ->
+    if ("${read_user}" in users_s) {
+        println "User already exists - Updating password"
+
+        def user = hudson.model.User.get("${read_user}");
+        def password = hudson.security.HudsonPrivateSecurityRealm.Details.fromPlainPassword('{{ jenkins_read_password }}')
+        user.addProperty(password)
+        user.save()
+    }
+    else {
+        println "User doesn't exists - Creating local user"
+
+        hudsonRealm.createAccount("${read_user}", '{{ jenkins_read_password }}')
+        instance.setSecurityRealm(hudsonRealm)
+
+        def strategy = new GlobalMatrixAuthorizationStrategy()
+        strategy.add(hudson.model.Hudson.READ, "${read_user}")
+
+        instance.setAuthorizationStrategy(strategy)
+        instance.save()
+    }
+}
+
+def build_users = "{{ jenkins_read_users }}"
+build_users.each { build_user ->
+    if ("${build_user}" in users_s) {
+        println "User already exists - Updating password"
+
+        def user = hudson.model.User.get("${build_user}");
+        def password = hudson.security.HudsonPrivateSecurityRealm.Details.fromPlainPassword('{{ jenkins_build_password }}')
+        user.addProperty(password)
+        user.save()
+    }
+    else {
+        println "User doesn't exists - Creating local user"
+
+        hudsonRealm.createAccount("${build_user}", '{{ jenkins_build_password }}')
+        instance.setSecurityRealm(hudsonRealm)
+
+        def strategy = new GlobalMatrixAuthorizationStrategy()
+        strategy.add(hudson.model.Item.BUILD,"${build_user}")
+        strategy.add(hudson.model.Item.CANCEL,"${build_user}")
+        strategy.add(hudson.model.Item.CONFIGURE,"${build_user}")
+        strategy.add(hudson.model.Item.CREATE,"${build_user}")
+        strategy.add(hudson.model.Item.DELETE,"${build_user}")
+        strategy.add(hudson.model.Item.DISCOVER,"${build_user}")
+        strategy.add(hudson.model.Item.READ,"${build_user}")
+        strategy.add(hudson.model.Item.WORKSPACE,"${build_user}")
+        strategy.add(hudson.model.Run.DELETE,"${build_user}")
+        strategy.add(hudson.model.Run.UPDATE,"${build_user}")
+
+        instance.setAuthorizationStrategy(strategy)
+        instance.save()
+    }
+}
+
+

@@ -1,0 +1,36 @@
+---
+- name: Pull Nexus image
+  docker_image:
+    name: sonatype/nexus
+    source: pull
+
+- name: Run Nexus container
+  command: >
+    docker run -dit \
+    --volume /shared_folder:/shared_folder
+    --publish 8081:8081 \
+    --restart=always \
+    --name nexus \
+    sonatype/nexus
+  ignore_errors: yes
+
+- name: Tag image and push it to private registry
+  docker_image:
+    name: sonatype/nexus
+    repository: localhost:5000/sonatype/nexus
+    push: yes
+    source: local
+
+- name: Wait for Nexus to start up before proceeding.
+  command: >
+    curl -D - --silent --max-time 5 http://localhost:8081/nexus/content/repositories/releases/
+  args:
+    warn: false
+  register: result
+  until: >
+    (result.stdout.find("403 Forbidden") != -1)
+    or (result.stdout.find("200 OK") != -1)
+  retries: "60"
+  delay: "5"
+  changed_when: false
+  check_mode: false

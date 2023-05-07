@@ -1,0 +1,64 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.35">
+    <actions/>
+    <description></description>
+    <keepDependencies>false</keepDependencies>
+    <properties/>
+    <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.74">
+        <script>
+node {
+    stage('Clone from SCM') {
+        git 'https://github.com/ColaboratorDevOps/Dodrio_Project.git'
+    }
+    stage('Git config') {
+        sh script: 'git config --global user.name "ColaboratorDevOps"'
+        sh script: 'git config --global user.email "colaborator.dev.ops@gmail.com"'
+
+        sh script: 'git config --global user.name'
+        sh script: 'git config --global user.email'
+    }
+    stage('Clean') {
+        sh script: 'mvn clean'
+    }
+    stage('Test') {
+        sh script: 'mvn test'
+    }
+    stage('Delete tags') {
+        sh script: 'git tag | xargs git tag -d'
+    }
+    stage('Release') {
+        sh script: 'mvn clean -s settings.xml --batch-mode release:clean release:prepare release:perform'
+    }
+    stage('Copy WAR file in the shared folder') {
+        sh '''
+        if [ ! -d "/shared_folder/WARfiles/" ]; then
+            mkdir "/shared_folder/WARfiles/"
+        fi
+        
+        cp ~/jobs/Release/workspace/target/Java-Simple-Web-Page-Particles-*.war /shared_folder/WARfiles/
+            
+        MostRecentRelease=`ls -Art /shared_folder/WARfiles/ | tail -n 1`
+
+        if [ -f "/shared_folder/WARfiles/MostRecentReleaseName" ]; then
+            OldName="/shared_folder/WARfiles/Java-Simple-Web-Page-Particles-Latest.war"
+            NewName="/shared_folder/WARfiles/`cat /shared_folder/WARfiles/MostRecentReleaseName`"
+            mv \$OldName \$NewName
+        fi
+
+        echo \$MostRecentRelease > /shared_folder/WARfiles/MostRecentReleaseName
+            
+        OldName="/shared_folder/WARfiles/${MostRecentRelease}"
+        NewName="/shared_folder/WARfiles/Java-Simple-Web-Page-Particles-Latest.war"
+        mv \$OldName \$NewName
+        
+        Destination="/shared_folder/ansible_playground/Roles/Tomcat/Java-Simple-Web-Page-Particles-Latest.war"
+        cp --force \$NewName \$Destination
+        '''
+    }
+}
+        </script>
+        <sandbox>false</sandbox>
+    </definition>
+    <triggers/>
+    <disabled>false</disabled>
+</flow-definition>

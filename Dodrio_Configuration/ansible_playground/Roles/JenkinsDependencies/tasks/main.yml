@@ -1,0 +1,16 @@
+- name: Install Epel-Release
+  yum: 
+    name: epel-release
+    state: latest
+
+- name: Install Python-Pip
+  yum: 
+    name: python-pip
+    state: latest
+  
+- name: Install Python-Jenkins & Lxml
+  command: pip install "{{ item }}"
+  with_items:
+  - python-jenkins
+  - lxml
+  ignore_errors: yes

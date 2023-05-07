@@ -1,0 +1,26 @@
+- name: Wait for Jenkins to start up before proceeding.
+  command: >
+    curl -D - --silent --max-time 5 http://localhost:8080/cli/
+  args:
+    warn: false
+  register: result
+  until: >
+    (result.stdout.find("403 Forbidden") != -1)
+    or (result.stdout.find("200 OK") != -1)
+    and (result.stdout.find("Please wait while") == -1)
+  retries: 60
+  delay: 5
+  changed_when: false
+  check_mode: false
+
+- name: Create Jenkins jobs
+  jenkins_job:
+    config: "{{ lookup('file', '/shared_folder/jenkins_jobs/{{ item }}.xml') }}"
+    name: "{{ item }}"
+    url: http://localhost:8080
+    user: admin
+    password: admin
+  with_items:
+    - "Release"
+  retries: 10
+  # ignore_errors: yes

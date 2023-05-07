@@ -1,0 +1,13 @@
+---
+- name: Ping all VMs
+  hosts: all
+
+  tasks:
+  - name: Ping
+    ping:
+    register: output
+
+  - name: Print
+    debug:
+      msg: "{{ output }}" 
+      

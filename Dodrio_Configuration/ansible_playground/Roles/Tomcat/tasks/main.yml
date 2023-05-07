@@ -1,0 +1,36 @@
+---
+- name: Pull Tomcat image
+  docker_image:
+    name: tomcat
+    source: pull
+
+- name: Stop and Delete Tomcat container
+  command: "{{ item }}"
+  with_items:
+    - "docker stop tomcat"
+    - "docker rm tomcat"
+  ignore_errors: yes
+
+- name: Build Tomcat image
+  command: >
+    docker image build \
+    --tag admin/tomcat \
+    /shared_folder/ansible_playground/Roles/Tomcat/
+  ignore_errors: yes
+
+- name: Tag image and push it to private registry
+  docker_image:
+    name: admin/tomcat
+    repository: localhost:5000/admin/tomcat
+    push: yes
+    source: local
+  ignore_errors: yes
+
+- name: Run Tomcat container
+  command: >
+    docker run -dit \
+    --publish 8080:8080 \
+    --restart=always \
+    --name tomcat \
+    admin/tomcat
+  ignore_errors: yes

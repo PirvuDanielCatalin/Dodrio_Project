@@ -1,0 +1,14 @@
+# - name: Update packages
+#   yum:
+#     name: "*"
+#     state: latest
+#     update_cache: yes
+
+- name: Install dependencies
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2

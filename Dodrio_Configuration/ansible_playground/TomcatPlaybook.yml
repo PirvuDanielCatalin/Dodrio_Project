@@ -1,0 +1,6 @@
+---
+- name: Publish app in Tomcat
+  hosts: vm3.proiect.sprint1
+
+  roles:
+    - Tomcat

@@ -1,0 +1,60 @@
+#!groovy
+import jenkins.*
+import hudson.*
+import com.cloudbees.plugins.credentials.*
+import com.cloudbees.plugins.credentials.common.*
+import com.cloudbees.plugins.credentials.domains.*
+import com.cloudbees.jenkins.plugins.sshcredentials.impl.*
+import hudson.plugins.sshslaves.*;
+import hudson.model.*
+import jenkins.model.*
+import hudson.security.*
+
+def instance = Jenkins.getInstance()
+def hudsonRealm = new HudsonPrivateSecurityRealm(false)
+def users = hudsonRealm.getAllUsers()
+users_s = users.collect { it.toString() }
+
+def strategy = new GlobalMatrixAuthorizationStrategy()
+
+hudsonRealm.createAccount('{{ jenkins_admin_username }}', '{{ jenkins_admin_password }}')
+hudsonRealm.createAccount('dani', 'dani')
+hudsonRealm.createAccount('andrei', 'andrei')
+hudsonRealm.createAccount('cristi', 'cristi')
+hudsonRealm.createAccount('bianca', 'bianca')
+hudsonRealm.createAccount('dumi', 'dumi')
+hudsonRealm.createAccount('marius', '')
+
+instance.setSecurityRealm(hudsonRealm)
+
+strategy.add(Jenkins.ADMINISTER, "admin")
+
+strategy.add(hudson.model.Hudson.READ, "cristi")
+strategy.add(hudson.model.Hudson.READ, "bianca")
+strategy.add(hudson.model.Hudson.READ, "dumi")
+strategy.add(hudson.model.Hudson.READ, "marius")
+
+strategy.add(hudson.model.Item.BUILD,       "dani")
+strategy.add(hudson.model.Item.CANCEL,      "dani")
+strategy.add(hudson.model.Item.CONFIGURE,   "dani")
+strategy.add(hudson.model.Item.CREATE,      "dani")
+strategy.add(hudson.model.Item.DELETE,      "dani")
+strategy.add(hudson.model.Item.DISCOVER,    "dani")
+strategy.add(hudson.model.Item.READ,        "dani")
+strategy.add(hudson.model.Item.WORKSPACE,   "dani")
+strategy.add(hudson.model.Run.DELETE,       "dani")
+strategy.add(hudson.model.Run.UPDATE,       "dani")
+
+strategy.add(hudson.model.Item.BUILD,       "andrei")
+strategy.add(hudson.model.Item.CANCEL,      "andrei")
+strategy.add(hudson.model.Item.CONFIGURE,   "andrei")
+strategy.add(hudson.model.Item.CREATE,      "andrei")
+strategy.add(hudson.model.Item.DELETE,      "andrei")
+strategy.add(hudson.model.Item.DISCOVER,    "andrei")
+strategy.add(hudson.model.Item.READ,        "andrei")
+strategy.add(hudson.model.Item.WORKSPACE,   "andrei")
+strategy.add(hudson.model.Run.DELETE,       "andrei")
+strategy.add(hudson.model.Run.UPDATE,       "andrei")
+
+instance.setAuthorizationStrategy(strategy)
+instance.save()

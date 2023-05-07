@@ -1,0 +1,6 @@
+.vscode
+.vagrant/
+id_rsa
+id_rsa.pub
+ansible_playground/Roles/Tomcat/*.war
+WARfiles/

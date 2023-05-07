@@ -1,0 +1,6 @@
+- name: Build Jenkins jobs
+  command: >
+    java -jar /opt/jenkins-cli.jar -s http://localhost:8080 -auth admin:admin build "{{ item }}" -f -v
+  with_items:
+  - "Release"
+  ignore_errors: yes

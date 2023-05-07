@@ -1,0 +1,22 @@
+Host VM1
+   Hostname vm1.proiect.sprint1
+   User root
+   Port 22
+   IdentityFile ~/.ssh/id_rsa
+
+Host VM2
+   Hostname vm2.proiect.sprint1
+   User root
+   Port 22
+   IdentityFile ~/.ssh/id_rsa
+
+Host VM3
+   Hostname vm3.proiect.sprint1
+   User root
+   Port 22
+   IdentityFile ~/.ssh/id_rsa
+
+Host *
+   StrictHostKeyChecking no
+   UserKnownHostsFile /dev/null
+   LogLevel ERROR
